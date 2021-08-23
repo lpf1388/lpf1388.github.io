@@ -64,6 +64,147 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-audio" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/23/audio/" class="article-date">
+  <time datetime="2021-08-23T06:23:39.675Z" itemprop="datePublished">2021-08-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: myBlog<br>date: 2021-08-22 10:34:42<br>tags:</p>
+<h1 id="方法一、将音频文件放置在static目录中，然后进行调用，如下所示"><a href="#方法一、将音频文件放置在static目录中，然后进行调用，如下所示" class="headerlink" title="方法一、将音频文件放置在static目录中，然后进行调用，如下所示"></a>方法一、将音频文件放置在static目录中，然后进行调用，如下所示</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio class=&quot;success&quot;</span><br><span class="line">    src=&quot;/static/audios/do_wrong.mp3&quot;&gt;</span><br><span class="line">&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上这种方式就能够解决这个问题了。</p>
+<h1 id="方法二、给项目配置mp3格式的解析器"><a href="#方法二、给项目配置mp3格式的解析器" class="headerlink" title="方法二、给项目配置mp3格式的解析器"></a>方法二、给项目配置mp3格式的解析器</h1><h2 id="1、在webpack-base-conf-js中添加加载器，如下"><a href="#1、在webpack-base-conf-js中添加加载器，如下" class="headerlink" title="1、在webpack.base.conf.js中添加加载器，如下"></a>1、在webpack.base.conf.js中添加加载器，如下</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   test: /\.(mp3)(\?.*)?$/,</span><br><span class="line">   loader: &#x27;url-loader&#x27;,</span><br><span class="line">   options: &#123;</span><br><span class="line">    name: utils.assetsPath(&#x27;assets/[name].[hash:7].[ext]&#x27;)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2、在vue-loader-conf-js文件为audio的src属性添加转换属性选项，让-vue-loader-知道需要将-audio-的-src-属性的内容转换为模块。"><a href="#2、在vue-loader-conf-js文件为audio的src属性添加转换属性选项，让-vue-loader-知道需要将-audio-的-src-属性的内容转换为模块。" class="headerlink" title="2、在vue-loader.conf.js文件为audio的src属性添加转换属性选项，让 vue-loader 知道需要将 audio 的 src 属性的内容转换为模块。"></a>2、在vue-loader.conf.js文件为audio的src属性添加转换属性选项，让 vue-loader 知道需要将 audio 的 src 属性的内容转换为模块。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var utils = require(&#x27;./utils&#x27;)</span><br><span class="line">var config = require(&#x27;../config&#x27;)</span><br><span class="line">var isProduction = process.env.NODE_ENV === &#x27;production&#x27;</span><br><span class="line"> </span><br><span class="line">module.exports = &#123;</span><br><span class="line"> loaders: utils.cssLoaders(&#123;</span><br><span class="line">  sourceMap: isProduction</span><br><span class="line">   ? config.build.productionSourceMap</span><br><span class="line">   : config.dev.cssSourceMap,</span><br><span class="line">  extract: isProduction</span><br><span class="line"> &#125;),</span><br><span class="line"> transformToRequire: &#123;</span><br><span class="line">  &quot;audio&quot;: &quot;src&quot;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3、添加audio标签，引入资源文件"><a href="#3、添加audio标签，引入资源文件" class="headerlink" title="3、添加audio标签，引入资源文件"></a>3、添加audio标签，引入资源文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio autoplay=&quot;autoplay&quot;</span><br><span class="line">    controls=&quot;controls&quot;</span><br><span class="line">    preload=&quot;auto&quot;</span><br><span class="line">    src=&quot;../assets/allright.mp3&quot;&gt;</span><br><span class="line">&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+<p>此时的资源文件放置在assets目录下即可。 </p>
+<h2 id="4、重新启动项目或者打包发布，即可听到声音。"><a href="#4、重新启动项目或者打包发布，即可听到声音。" class="headerlink" title="4、重新启动项目或者打包发布，即可听到声音。"></a>4、重新启动项目或者打包发布，即可听到声音。</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/08/23/audio/" data-id="cksoa8za70000pctwem3thf9b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-scss适配" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/23/scss%E9%80%82%E9%85%8D/" class="article-date">
+  <time datetime="2021-08-23T06:13:41.874Z" itemprop="datePublished">2021-08-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: 2021年8月20号<br>date: 2021-08-21 09:10:10<br>tags:</p>
+<h1 id="1-安装依赖（指定低版本安"><a href="#1-安装依赖（指定低版本安" class="headerlink" title="1.安装依赖（指定低版本安"></a>1.安装依赖（指定低版本安</h1><h1 id="装）"><a href="#装）" class="headerlink" title="装）"></a>装）</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install sass-loader@<span class="number">7.3</span><span class="number">.1</span> --save-dev</span><br><span class="line">npm install node-sass@<span class="number">4.14</span><span class="number">.1</span> --save-dev</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-在build文件夹下的webpack-base-conf-js的rules里面添加配置"><a href="#2-在build文件夹下的webpack-base-conf-js的rules里面添加配置" class="headerlink" title="2. 在build文件夹下的webpack.base.conf.js的rules里面添加配置"></a>2. 在build文件夹下的webpack.base.conf.js的rules里面添加配置</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">test</span>: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">loaders: [<span class="string">&#x27;style&#x27;</span>, <span class="string">&#x27;css&#x27;</span>, <span class="string">&#x27;sass&#x27;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-在vue文件中使用"><a href="#3-在vue文件中使用" class="headerlink" title="3.在vue文件中使用"></a>3.在vue文件中使用</h1><template>
+    <div class="hello">111111111111</div>
+</template>
+...
+<style lang="scss">
+$color: red;
+$fontColor: #fff;
+.hello {
+    background: $color;
+    color: $fontColor;
+}
+</style>
+
+
+<h1 id="4-卸载方法"><a href="#4-卸载方法" class="headerlink" title="4.卸载方法"></a>4.卸载方法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall sass-loader</span><br><span class="line">npm uninstall node-sass</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/08/23/scss%E9%80%82%E9%85%8D/" data-id="cksoa8zax0002pctwf5mkdhkq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-router传参" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/23/router%E4%BC%A0%E5%8F%82/" class="article-date">
+  <time datetime="2021-08-23T02:47:24.000Z" itemprop="datePublished">2021-08-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/23/router%E4%BC%A0%E5%8F%82/">createCdn</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="vue路由传参的三种方式"><a href="#vue路由传参的三种方式" class="headerlink" title="vue路由传参的三种方式"></a>vue路由传参的三种方式</h1><h2 id="方法一：params传参："><a href="#方法一：params传参：" class="headerlink" title="方法一：params传参："></a>方法一：params传参：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123; name:&quot;admin&quot;,params:&#123;id:item.id&#125;&#125;) </span><br><span class="line">//这里的params是一个对象，id是属性名，item.id是值(可以从当前组件或者Vue实例上直接取) </span><br><span class="line">//这个组件对应的路由配置&#123;//组件路径  path: &#x27;/admin&#x27;,　//组件别名  name: &#x27;admin&#x27;,　　//组件名  component: Admin,&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过params传递参数，如果我们想获取id的 参数值，我们可以通过this.$route.params.id这种方式来打印出来就可以得到了；（注意：获取参数的时候是$route，跳转和传参的时候是$router）</p>
+<h2 id="方法二：路由属性配置传参："><a href="#方法二：路由属性配置传参：" class="headerlink" title="方法二：路由属性配置传参："></a>方法二：路由属性配置传参：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123; name:&quot;/admin/$&#123;item.id&#125;&quot;,&#125;)    </span><br><span class="line">//这个组件对应的路由配置&#123;　　//组件路径    path: &#x27;/admin:id&#x27;,　　//组件别名    name: &#x27;admin&#x27;,　　//组件名    component: Admin,&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过路由属性配置传参我们可以用this.$route.params.id来获取到id的值，注意this.$router.push方法里面路径带的是值，路由配置项那里带的是变量名(属性名)来实现的对应；</p>
+<p>以上两种传参方式基本上可以理解为ajax中的post请求方式，参数都是不可见的，但是上面两种方法都有一个弊端，就是当页面刷新了是获取不到参数值的，那么有没有一种方法是页面刷新之后参数依然存在呢？</p>
+<h2 id="方法三：query传参"><a href="#方法三：query传参" class="headerlink" title="方法三：query传参"></a>方法三：query传参</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123; name:&quot;/admin&quot;,query:&#123;id：item.id&#125;&#125;)</span><br><span class="line">//这个组件对应的路由配置&#123;　　//组件路径    path: &#x27;/admin&#x27;,　　//组件别名    name: &#x27;admin&#x27;,　　//组件名    component: Admin,&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第三种方式是用query来传参，这种方式是可以解决页面刷新参数消失问题的，这种方式可以理解为是ajax中的get方法，参数是直接在url后面添加的，参数是可见的，所以解决页面刷新参数消失问题建议使用方法三来解决；</p>
+<p>其实解决页面刷新参数丢失问题的方案还有很多，比如把参数存在sessionStorange或者localStorange中都是可行的，</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/08/23/router%E4%BC%A0%E5%8F%82/" data-id="cksoa8zav0001pctwcx0950rf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2021年8月20号" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/20/2021%E5%B9%B48%E6%9C%8820%E5%8F%B7/" class="article-date">
@@ -287,19 +428,23 @@
       <ul>
         
           <li>
+            <a href="/2021/08/23/audio/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/23/scss%E9%80%82%E9%85%8D/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/23/router%E4%BC%A0%E5%8F%82/">createCdn</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/20/2021%E5%B9%B48%E6%9C%8820%E5%8F%B7/">2021年8月20号</a>
           </li>
         
           <li>
             <a href="/2021/08/19/2021_08_19_%E5%8D%9A%E5%AE%A2%E4%B8%8A%E7%BA%BF/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/18/createCdn/">createCdn</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/18/myBlog/">myBlog</a>
           </li>
         
       </ul>

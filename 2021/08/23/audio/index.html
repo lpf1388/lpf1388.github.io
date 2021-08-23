@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: myBlogdate: 2021-08-22 10:34:42tags: 方法一、将音频文件放置在static目录中，然后进行调用，如下所示123&lt;audio class&#x3D;&quot;success&quot;    src&#x3D;&quot;&#x2F;static&#x2F;audios&#x2F;do_wrong.mp3&quot;&gt;&lt;&#x2F;audio&gt;    以上这种方式就能够解决这个问题了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2021/08/23/audio/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: myBlogdate: 2021-08-22 10:34:42tags: 方法一、将音频文件放置在static目录中，然后进行调用，如下所示123&lt;audio class&#x3D;&quot;success&quot;    src&#x3D;&quot;&#x2F;static&#x2F;audios&#x2F;do_wrong.mp3&quot;&gt;&lt;&#x2F;audio&gt;    以上这种方式就能够解决这个问题了">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-23T06:23:39.675Z">
+<meta property="article:modified_time" content="2021-08-23T06:31:35.773Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-audio" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/23/audio/" class="article-date">
+  <time datetime="2021-08-23T06:23:39.675Z" itemprop="datePublished">2021-08-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: myBlog<br>date: 2021-08-22 10:34:42<br>tags:</p>
+<h1 id="方法一、将音频文件放置在static目录中，然后进行调用，如下所示"><a href="#方法一、将音频文件放置在static目录中，然后进行调用，如下所示" class="headerlink" title="方法一、将音频文件放置在static目录中，然后进行调用，如下所示"></a>方法一、将音频文件放置在static目录中，然后进行调用，如下所示</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio class=&quot;success&quot;</span><br><span class="line">    src=&quot;/static/audios/do_wrong.mp3&quot;&gt;</span><br><span class="line">&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上这种方式就能够解决这个问题了。</p>
+<h1 id="方法二、给项目配置mp3格式的解析器"><a href="#方法二、给项目配置mp3格式的解析器" class="headerlink" title="方法二、给项目配置mp3格式的解析器"></a>方法二、给项目配置mp3格式的解析器</h1><h2 id="1、在webpack-base-conf-js中添加加载器，如下"><a href="#1、在webpack-base-conf-js中添加加载器，如下" class="headerlink" title="1、在webpack.base.conf.js中添加加载器，如下"></a>1、在webpack.base.conf.js中添加加载器，如下</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   test: /\.(mp3)(\?.*)?$/,</span><br><span class="line">   loader: &#x27;url-loader&#x27;,</span><br><span class="line">   options: &#123;</span><br><span class="line">    name: utils.assetsPath(&#x27;assets/[name].[hash:7].[ext]&#x27;)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2、在vue-loader-conf-js文件为audio的src属性添加转换属性选项，让-vue-loader-知道需要将-audio-的-src-属性的内容转换为模块。"><a href="#2、在vue-loader-conf-js文件为audio的src属性添加转换属性选项，让-vue-loader-知道需要将-audio-的-src-属性的内容转换为模块。" class="headerlink" title="2、在vue-loader.conf.js文件为audio的src属性添加转换属性选项，让 vue-loader 知道需要将 audio 的 src 属性的内容转换为模块。"></a>2、在vue-loader.conf.js文件为audio的src属性添加转换属性选项，让 vue-loader 知道需要将 audio 的 src 属性的内容转换为模块。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var utils = require(&#x27;./utils&#x27;)</span><br><span class="line">var config = require(&#x27;../config&#x27;)</span><br><span class="line">var isProduction = process.env.NODE_ENV === &#x27;production&#x27;</span><br><span class="line"> </span><br><span class="line">module.exports = &#123;</span><br><span class="line"> loaders: utils.cssLoaders(&#123;</span><br><span class="line">  sourceMap: isProduction</span><br><span class="line">   ? config.build.productionSourceMap</span><br><span class="line">   : config.dev.cssSourceMap,</span><br><span class="line">  extract: isProduction</span><br><span class="line"> &#125;),</span><br><span class="line"> transformToRequire: &#123;</span><br><span class="line">  &quot;audio&quot;: &quot;src&quot;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3、添加audio标签，引入资源文件"><a href="#3、添加audio标签，引入资源文件" class="headerlink" title="3、添加audio标签，引入资源文件"></a>3、添加audio标签，引入资源文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;audio autoplay=&quot;autoplay&quot;</span><br><span class="line">    controls=&quot;controls&quot;</span><br><span class="line">    preload=&quot;auto&quot;</span><br><span class="line">    src=&quot;../assets/allright.mp3&quot;&gt;</span><br><span class="line">&lt;/audio&gt;</span><br></pre></td></tr></table></figure>
+
+<p>此时的资源文件放置在assets目录下即可。 </p>
+<h2 id="4、重新启动项目或者打包发布，即可听到声音。"><a href="#4、重新启动项目或者打包发布，即可听到声音。" class="headerlink" title="4、重新启动项目或者打包发布，即可听到声音。"></a>4、重新启动项目或者打包发布，即可听到声音。</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/08/23/audio/" data-id="cksoa8za70000pctwem3thf9b" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/08/23/scss%E9%80%82%E9%85%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/08/23/audio/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/23/scss%E9%80%82%E9%85%8D/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/23/router%E4%BC%A0%E5%8F%82/">createCdn</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/20/2021%E5%B9%B48%E6%9C%8820%E5%8F%B7/">2021年8月20号</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/19/2021_08_19_%E5%8D%9A%E5%AE%A2%E4%B8%8A%E7%BA%BF/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
